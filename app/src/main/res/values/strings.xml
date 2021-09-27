@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">test ba salam</string>
+    <string name="animal_and_flower_name">%s / %s</string>
+    <string name="number_of_common_letters">تعداد حروف مشترک : %d</string>
 </resources>
