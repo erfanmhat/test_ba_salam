@@ -5,7 +5,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.lifecycle.MutableLiveData
 import ir.erfan_mh_at.test_ba_salam.BaseApplication
+import retrofit2.Response
+import java.io.IOException
 
 fun Application.checkInternetConnection(): Boolean {
     val connectivityManager = (this as BaseApplication).getSystemService(
@@ -32,4 +35,32 @@ fun Application.checkInternetConnection(): Boolean {
         }
     }
     return false
+}
+
+
+fun <E> handleRetrofitResponse(response: Response<E>): Resource<E> {
+    if (response.isSuccessful) {
+        response.body()?.let { body ->
+            return Resource.Success(body)
+        }
+    }
+    return Resource.Error(response.message(), response.body())
+}
+
+fun <T> safeCallApi(
+    app: Application,
+    api: Response<T>
+): Resource<T> {
+    return try {
+        if (app.checkInternetConnection()) {
+            handleRetrofitResponse(api)
+        } else {
+            Resource.Error("No internet connection!")
+        }
+    } catch (t: Throwable) {
+        when (t) {
+            is IOException -> Resource.Error("Network Failure")
+            else -> Resource.Error("Conversion Error")
+        }
+    }
 }
