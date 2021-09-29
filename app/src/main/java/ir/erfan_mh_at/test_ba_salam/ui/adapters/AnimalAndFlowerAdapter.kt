@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.adapters
+package ir.erfan_mh_at.test_ba_salam.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.ItemAnimalAndFlowerRowBinding
-import ir.erfan_mh_at.test_ba_salam.models.Animal
-import ir.erfan_mh_at.test_ba_salam.models.Flower
+import ir.erfan_mh_at.test_ba_salam.data.models.Animal
+import ir.erfan_mh_at.test_ba_salam.data.models.Flower
 
 class AnimalAndFlowerAdapter :
     RecyclerView.Adapter<AnimalAndFlowerAdapter.AnimalAndFlowerViewHolder>() {

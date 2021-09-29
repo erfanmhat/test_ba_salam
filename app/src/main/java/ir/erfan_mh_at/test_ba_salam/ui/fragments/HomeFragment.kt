@@ -1,17 +1,20 @@
 package ir.erfan_mh_at.test_ba_salam.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentHomeBinding
-import javax.inject.Inject
+import ir.erfan_mh_at.test_ba_salam.other.Resource
+import ir.erfan_mh_at.test_ba_salam.ui.viewModels.AnimalAndFlowerViewModel
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    private val animalAndFlowerViewModel: AnimalAndFlowerViewModel by viewModels()
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -30,6 +33,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun configure() {
+        animalAndFlowerViewModel.callAnimalAndFlowerApiAndHandleResource()
+        animalAndFlowerViewModel.animalAndFlowerLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
 
+                }
+                is Resource.Loading -> {
+
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
     }
 }
