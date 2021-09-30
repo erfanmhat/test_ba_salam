@@ -6,13 +6,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import ir.erfan_mh_at.test_ba_salam.BaseApplication
 import retrofit2.Response
 import java.io.IOException
+import java.util.*
+import kotlin.math.min
 
 fun Application.checkInternetConnection(): Boolean {
-    Log.d("SSSSSS","checkInternetConnection")
+    Log.d("SSSSSS", "checkInternetConnection")
     val connectivityManager = (this as BaseApplication).getSystemService(
         Context.CONNECTIVITY_SERVICE
     ) as ConnectivityManager
@@ -53,20 +54,32 @@ fun <T> safeCallApi(
     app: Application,
     api: Response<T>
 ): Resource<T> {
-    Log.d("SSSSSSS","main")
+    Log.d("SSSSSSS", "main")
     return try {
         if (app.checkInternetConnection()) {
-            Log.d("SSSSSSS","if")
+            Log.d("SSSSSSS", "if")
             handleRetrofitResponse(api)
         } else {
-            Log.d("SSSSSSS","else")
+            Log.d("SSSSSSS", "else")
             Resource.Error("No internet connection!")
         }
     } catch (t: Throwable) {
-        Log.d("SSSSSSS","catch")
+        Log.d("SSSSSSS", "catch")
         when (t) {
             is IOException -> Resource.Error("Network Failure")
             else -> Resource.Error("Conversion Error")
         }
     }
+}
+
+fun numberOfCommonLetters(str1: String, str2: String): Int {
+    val commonLetters: MutableSet<Char> = mutableSetOf()
+    for (ch1 in str1) {
+        for (ch2 in str2) {
+            if (ch1 == ch2) {
+                commonLetters.add(ch1)
+            }
+        }
+    }
+    return commonLetters.size
 }

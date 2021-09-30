@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.ItemAnimalAndFlowerRowBinding
 import ir.erfan_mh_at.test_ba_salam.data.models.Animal
 import ir.erfan_mh_at.test_ba_salam.data.models.Flower
+import ir.erfan_mh_at.test_ba_salam.other.numberOfCommonLetters
 
 class AnimalAndFlowerAdapter :
     RecyclerView.Adapter<AnimalAndFlowerAdapter.AnimalAndFlowerViewHolder>() {
@@ -48,15 +50,29 @@ class AnimalAndFlowerAdapter :
     override fun onBindViewHolder(holder: AnimalAndFlowerViewHolder, position: Int) {
         val currentItem = differ.currentList[position]
         binding.apply {
+            val animalName = currentItem.first.name
+            val flowerName = currentItem.second.name
             tvAnimalAndFlowerName.text = context.getString(
-                R.string.animal_and_flower_name,
-                currentItem.first.name,
-                currentItem.second.name
+                R.string.animal_and_flower_name, animalName, flowerName
             )
-            tvNumberOfCommonLetters.text=context.getString(
+
+            tvNumberOfCommonLetters.text = context.getString(
                 R.string.number_of_common_letters,
-                2
+                numberOfCommonLetters(animalName, flowerName)
             )
+
+            Glide.with(holder.itemView)
+                .load(currentItem.first.image)
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_error)
+                .centerCrop()
+                .into(ivAnimal)
+            Glide.with(holder.itemView)
+                .load(currentItem.second.image)
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_error)
+                .centerCrop()
+                .into(ivFlower)
         }
     }
 
