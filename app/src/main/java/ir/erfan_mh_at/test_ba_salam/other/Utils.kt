@@ -5,15 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.Log
 import ir.erfan_mh_at.test_ba_salam.BaseApplication
+import ir.erfan_mh_at.test_ba_salam.data.models.Animal
+import ir.erfan_mh_at.test_ba_salam.data.models.Flower
 import retrofit2.Response
 import java.io.IOException
-import java.util.*
-import kotlin.math.min
 
 fun Application.checkInternetConnection(): Boolean {
-    Log.d("SSSSSS", "checkInternetConnection")
     val connectivityManager = (this as BaseApplication).getSystemService(
         Context.CONNECTIVITY_SERVICE
     ) as ConnectivityManager
@@ -50,26 +48,34 @@ fun <E> handleRetrofitResponse(response: Response<E>): Resource<E> {
     return Resource.Error(response.message(), response.body())
 }
 
-fun <T> safeCallApi(
+suspend fun <T> safeCallApi(
     app: Application,
-    api: Response<T>
+    callApi: suspend () -> Response<T>
 ): Resource<T> {
-    Log.d("SSSSSSS", "main")
     return try {
         if (app.checkInternetConnection()) {
-            Log.d("SSSSSSS", "if")
-            handleRetrofitResponse(api)
+            handleRetrofitResponse(callApi())
         } else {
-            Log.d("SSSSSSS", "else")
             Resource.Error("No internet connection!")
         }
     } catch (t: Throwable) {
-        Log.d("SSSSSSS", "catch")
         when (t) {
             is IOException -> Resource.Error("Network Failure")
             else -> Resource.Error("Conversion Error")
         }
     }
+}
+
+fun mergeAnimalAndFlowerList(
+    animalList: List<Animal>,
+    flowerList: List<Flower>
+): List<Pair<Animal, Flower>> {
+    val result: MutableList<Pair<Animal, Flower>> = mutableListOf()
+    for (animal in animalList) {
+        val flower = flowerList.find { flower -> animal.id == flower.id }
+        if (flower != null) result.add(Pair(animal, flower))
+    }
+    return result
 }
 
 fun numberOfCommonLetters(str1: String, str2: String): Int {

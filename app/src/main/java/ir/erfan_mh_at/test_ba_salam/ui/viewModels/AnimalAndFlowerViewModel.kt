@@ -1,6 +1,7 @@
 package ir.erfan_mh_at.test_ba_salam.ui.viewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,15 +31,13 @@ class AnimalAndFlowerViewModel @Inject constructor(
         _animalAndFlowerMutableLiveData.postValue(Resource.Loading())
         val animalDeferred = async {
             safeCallApi(
-                getApplication<Application>(),
-                mainRepository.getAnimals()
-            )
+                getApplication<Application>()
+            ) { mainRepository.getAnimals() }
         }
         val flowerDeferred = async {
             safeCallApi(
-                getApplication<Application>(),
-                mainRepository.getFlowers()
-            )
+                getApplication<Application>()
+            ) { mainRepository.getFlowers() }
         }
         val animalResource = animalDeferred.await()
         val flowerResource = flowerDeferred.await()
@@ -78,17 +77,5 @@ class AnimalAndFlowerViewModel @Inject constructor(
             }
             else -> Unit
         }
-    }
-
-    private fun mergeAnimalAndFlowerList(
-        animalList: List<Animal>,
-        flowerList: List<Flower>
-    ): List<Pair<Animal, Flower>> {
-        val result: MutableList<Pair<Animal, Flower>> = mutableListOf()
-        for (animal in animalList) {
-            val flower = flowerList.find { flower -> animal.id == flower.id }
-            if (flower != null) result.add(Pair(animal, flower))
-        }
-        return result
     }
 }
