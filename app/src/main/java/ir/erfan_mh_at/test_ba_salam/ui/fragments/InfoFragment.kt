@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayoutMediator
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentInfoBinding
 import ir.erfan_mh_at.test_ba_salam.other.addComma
 import ir.erfan_mh_at.test_ba_salam.other.commonLetters
+import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerAdapter
+import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerImageAdapter
 
 class InfoFragment : Fragment() {
 
@@ -43,6 +46,17 @@ class InfoFragment : Fragment() {
             val commonLetters = commonLetters(animalName, flowerName)
             tvNumberOfCommonLetters.text = commonLetters.length.toString()
             tvCommonLetters.text = getString(R.string.common_letters, commonLetters.addComma())
+
+            vp2Images.adapter = AnimalAndFlowerImageAdapter(
+                listOf(
+                    args.animalAndFlower.animal.image,
+                    args.animalAndFlower.flower.image
+                )
+            )
+
+            TabLayoutMediator(tabLayout, vp2Images) { tab, position ->
+                //Some implementation
+            }.attach()
         }
     }
 }
