@@ -11,6 +11,7 @@ import ir.erfan_mh_at.test_ba_salam.data.models.Animal
 import ir.erfan_mh_at.test_ba_salam.data.models.Flower
 import ir.erfan_mh_at.test_ba_salam.other.*
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,8 +19,7 @@ import javax.inject.Inject
 class AnimalAndFlowerViewModel @Inject constructor(
     app: Application,
     private val mainRepository: MainRepository
-) :
-    AndroidViewModel(app) {
+) : AndroidViewModel(app) {
 
     private val _animalAndFlowerMutableLiveData: MutableLiveData<Resource<List<Pair<Animal, Flower>>>> =
         MutableLiveData()
@@ -27,7 +27,7 @@ class AnimalAndFlowerViewModel @Inject constructor(
         _animalAndFlowerMutableLiveData as LiveData<Resource<List<Pair<Animal, Flower>>>>
 
     fun callAnimalAndFlowerApiAndHandleResource() = viewModelScope.launch {
-        _animalAndFlowerMutableLiveData
+        _animalAndFlowerMutableLiveData.postValue(Resource.Loading())
         val animalDeferred = async {
             safeCallApi(
                 getApplication<Application>(),

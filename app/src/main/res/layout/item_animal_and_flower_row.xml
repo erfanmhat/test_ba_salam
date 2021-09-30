@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:padding="3dp"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:padding="3dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -45,10 +45,10 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivFlower"
                 style="@style/rounded_image"
-                android:layout_marginEnd="45dp"
-                android:background="#444444"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="45dp"
                 android:elevation="5dp"
+                android:src="@drawable/image_placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
                 style="@style/rounded_image"
                 android:layout_marginEnd="-30dp"
                 android:layout_marginBottom="50dp"
-                android:background="#884444"
+                android:src="@drawable/image_placeholder"
                 app:layout_constraintBottom_toBottomOf="@id/ivFlower"
                 app:layout_constraintEnd_toEndOf="@id/ivFlower"
                 app:layout_constraintTop_toTopOf="@id/ivFlower" />
