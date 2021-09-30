@@ -1,18 +1,15 @@
 package ir.erfan_mh_at.test_ba_salam.ui.viewModels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.erfan_mh_at.test_ba_salam.data.repositorys.MainRepository
-import ir.erfan_mh_at.test_ba_salam.data.models.Animal
-import ir.erfan_mh_at.test_ba_salam.data.models.Flower
+import ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower
 import ir.erfan_mh_at.test_ba_salam.other.*
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,10 +19,10 @@ class AnimalAndFlowerViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : AndroidViewModel(app) {
 
-    private val _animalAndFlowerMutableLiveData: MutableLiveData<Resource<List<Pair<Animal, Flower>>>> =
+    private val _animalAndFlowerMutableLiveData: MutableLiveData<Resource<List<AnimalAndFlower>>> =
         MutableLiveData()
     val animalAndFlowerLiveData =
-        _animalAndFlowerMutableLiveData as LiveData<Resource<List<Pair<Animal, Flower>>>>
+        _animalAndFlowerMutableLiveData as LiveData<Resource<List<AnimalAndFlower>>>
 
     fun callAnimalAndFlowerApiAndHandleResource() = viewModelScope.launch {
         _animalAndFlowerMutableLiveData.postValue(Resource.Loading())

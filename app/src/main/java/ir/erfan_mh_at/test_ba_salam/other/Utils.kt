@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import ir.erfan_mh_at.test_ba_salam.BaseApplication
 import ir.erfan_mh_at.test_ba_salam.data.models.Animal
+import ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower
 import ir.erfan_mh_at.test_ba_salam.data.models.Flower
 import retrofit2.Response
 import java.io.IOException
@@ -69,16 +70,16 @@ suspend fun <T> safeCallApi(
 fun mergeAnimalAndFlowerList(
     animalList: List<Animal>,
     flowerList: List<Flower>
-): List<Pair<Animal, Flower>> {
-    val result: MutableList<Pair<Animal, Flower>> = mutableListOf()
+): List<AnimalAndFlower> {
+    val result: MutableList<AnimalAndFlower> = mutableListOf()
     for (animal in animalList) {
         val flower = flowerList.find { flower -> animal.id == flower.id }
-        if (flower != null) result.add(Pair(animal, flower))
+        if (flower != null) result.add(AnimalAndFlower(animal, flower))
     }
     return result
 }
 
-fun numberOfCommonLetters(str1: String, str2: String): Int {
+fun commonLetters(str1: String, str2: String): String {
     val commonLetters: MutableSet<Char> = mutableSetOf()
     for (ch1 in str1) {
         for (ch2 in str2) {
@@ -87,5 +88,17 @@ fun numberOfCommonLetters(str1: String, str2: String): Int {
             }
         }
     }
-    return commonLetters.size
+    return commonLetters.toString().filter { it != '[' }.filter { it != ']' }.filter { it != ',' }
+        .filter { it != ' ' }
+}
+
+fun String.addComma(): String {
+    var result = ""
+    for (i in this.indices) {
+        result += this[i]
+        if (i < this.length - 1) {
+            result += "،"
+        }
+    }
+    return result
 }

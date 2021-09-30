@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentHomeBinding
@@ -64,6 +65,10 @@ class HomeFragment : Fragment() {
         binding.rvAnimalAndFlower.apply {
             adapter = animalAndFlowerAdapter
             layoutManager = LinearLayoutManager(context)
+        }
+        animalAndFlowerAdapter.setCircleOnClickListener { animalAndFlower ->
+            val action = HomeFragmentDirections.actionHomeFragmentToInfoFragment(animalAndFlower)
+            findNavController().navigate(action)
         }
     }
 }
