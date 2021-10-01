@@ -1,17 +1,17 @@
 package ir.erfan_mh_at.test_ba_salam.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentInfoBinding
 import ir.erfan_mh_at.test_ba_salam.other.addComma
 import ir.erfan_mh_at.test_ba_salam.other.commonLetters
-import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerAdapter
+import ir.erfan_mh_at.test_ba_salam.ui.MainActivity
 import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerImageAdapter
 
 class InfoFragment : Fragment() {
@@ -35,6 +35,11 @@ class InfoFragment : Fragment() {
     }
 
     private fun configure() {
+        setupViews()
+        setOnClicks()
+    }
+
+    private fun setupViews() {
         binding.apply {
             val animalName = args.animalAndFlower.animal.name
             val flowerName = args.animalAndFlower.flower.name
@@ -54,9 +59,22 @@ class InfoFragment : Fragment() {
                 )
             )
 
-            TabLayoutMediator(tabLayout, vp2Images) { tab, position ->
-                //Some implementation
-            }.attach()
+            TabLayoutMediator(tabLayout, vp2Images) { _, _ -> }.attach()
+        }
+    }
+
+    private fun setOnClicks() {
+        val mainActivity = (activity as MainActivity)
+        mainActivity.icMenuOnClickListener = {
+            Toast.makeText(context, "info fragment menu!", Toast.LENGTH_LONG).show()
+        }
+
+        mainActivity.icSearchOnClickListener = {
+            Toast.makeText(context, "info fragment search!", Toast.LENGTH_LONG).show()
+        }
+
+        mainActivity.icBackOnClickListener = {
+            findNavController().navigate(R.id.action_infoFragment_to_homeFragment)
         }
     }
 }

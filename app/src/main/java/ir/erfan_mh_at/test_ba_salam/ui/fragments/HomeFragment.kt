@@ -1,9 +1,7 @@
 package ir.erfan_mh_at.test_ba_salam.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentHomeBinding
 import ir.erfan_mh_at.test_ba_salam.other.Resource
+import ir.erfan_mh_at.test_ba_salam.ui.MainActivity
 import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerAdapter
 import ir.erfan_mh_at.test_ba_salam.ui.viewModels.AnimalAndFlowerViewModel
 
@@ -39,6 +38,7 @@ class HomeFragment : Fragment() {
 
     private fun configure() {
         setupRecyclerView()
+        setOnClicks()
     }
 
     private fun observeToObservers() {
@@ -69,6 +69,21 @@ class HomeFragment : Fragment() {
         animalAndFlowerAdapter.setCircleOnClickListener { animalAndFlower ->
             val action = HomeFragmentDirections.actionHomeFragmentToInfoFragment(animalAndFlower)
             findNavController().navigate(action)
+        }
+    }
+
+    private fun setOnClicks() {
+        val mainActivity = (activity as MainActivity)
+        mainActivity.icMenuOnClickListener = {
+            Toast.makeText(context, "home fragment menu!", Toast.LENGTH_LONG).show()
+        }
+
+        mainActivity.icSearchOnClickListener = {
+            Toast.makeText(context, "home fragment search!", Toast.LENGTH_LONG).show()
+        }
+
+        mainActivity.icBackOnClickListener = {
+            (activity as MainActivity).finish()
         }
     }
 }

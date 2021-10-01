@@ -48,7 +48,7 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivFlower"
-                style="@style/rounded_image"
+                style="@style/item_rounded_image"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="45dp"
                 android:elevation="5dp"
@@ -59,7 +59,7 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivAnimal"
-                style="@style/rounded_image"
+                style="@style/item_rounded_image"
                 android:layout_marginEnd="-30dp"
                 android:layout_marginBottom="50dp"
                 android:src="@drawable/image_placeholder"

@@ -7,6 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorOnPrimary">#33F23030</color>
+    <color name="colorPrimaryVariant">#F23030</color>
+    <color name="colorSecondary">#F23030</color>
+    <color name="colorSecondaryVariant">#952323</color>
 
     <color name="background">#E5E5E5</color>
     <color name="background_card_view">#FFFFFF</color>
@@ -16,4 +21,6 @@
     <color name="secondary_text_color">#949494</color>
     <color name="default_indicator_color">#868686</color>
     <color name="selected_indicator_color">#FFFFFF</color>
+    <color name="icon_menu_and_search">#535353</color>
+    <color name="toolbar_back_and_text">#282828</color>
 </resources>
