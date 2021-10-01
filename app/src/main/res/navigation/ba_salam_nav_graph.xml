@@ -7,23 +7,32 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="ir.erfan_mh_at.test_ba_salam.ui.fragments.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_infoFragment"
             app:destination="@id/infoFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="ir.erfan_mh_at.test_ba_salam.ui.fragments.InfoFragment"
-        android:label="InfoFragment" >
+        android:label="InfoFragment">
         <action
             android:id="@+id/action_infoFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
-        <argument android:name="animalAndFlower"
+        <argument
+            android:name="animalAndFlower"
             app:argType="ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower" />
     </fragment>
 </navigation>

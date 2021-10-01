@@ -9,11 +9,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="-40dp"
+        android:layout_marginLeft="-40dp"
         android:elevation="5dp"
         app:cardCornerRadius="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/clCircle">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/clCircle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,9 +23,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/ivFlower"
+                app:layout_constraintRight_toLeftOf="@id/ivFlower"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -37,7 +37,7 @@
                     android:textColor="@color/main_text_color"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/tvNumberOfCommonLetters"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -50,7 +50,7 @@
                     android:textColor="@color/secondary_text_color"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
 
                     app:layout_constraintTop_toBottomOf="@id/tvAnimalAndFlowerName" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,21 +59,21 @@
                 android:id="@+id/ivFlower"
                 style="@style/item_rounded_image"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="45dp"
+                android:layout_marginRight="45dp"
                 android:elevation="5dp"
                 android:src="@drawable/image_placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivAnimal"
                 style="@style/item_rounded_image"
-                android:layout_marginEnd="-30dp"
+                android:layout_marginRight="-30dp"
                 android:layout_marginBottom="50dp"
                 android:src="@drawable/image_placeholder"
                 app:layout_constraintBottom_toBottomOf="@id/ivFlower"
-                app:layout_constraintEnd_toEndOf="@id/ivFlower"
+                app:layout_constraintRight_toRightOf="@id/ivFlower"
                 app:layout_constraintTop_toTopOf="@id/ivFlower" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -87,7 +87,7 @@
         android:elevation="10dp"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,9 +96,9 @@
             android:background="@drawable/circle"
             android:backgroundTint="@color/circle_color"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -107,9 +107,9 @@
                 android:padding="16dp"
                 android:src="@drawable/ic_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>

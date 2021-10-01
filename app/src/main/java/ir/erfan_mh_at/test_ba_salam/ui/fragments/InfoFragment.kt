@@ -11,6 +11,7 @@ import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentInfoBinding
 import ir.erfan_mh_at.test_ba_salam.other.addComma
 import ir.erfan_mh_at.test_ba_salam.other.commonLetters
+import ir.erfan_mh_at.test_ba_salam.other.enNumberToFa
 import ir.erfan_mh_at.test_ba_salam.ui.MainActivity
 import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerImageAdapter
 
@@ -49,7 +50,7 @@ class InfoFragment : Fragment() {
                 flowerName
             )
             val commonLetters = commonLetters(animalName, flowerName)
-            tvNumberOfCommonLetters.text = commonLetters.length.toString()
+            tvNumberOfCommonLetters.text = commonLetters.length.toString().enNumberToFa()
             tvCommonLetters.text = getString(R.string.common_letters, commonLetters.addComma())
 
             vp2Images.adapter = AnimalAndFlowerImageAdapter(

@@ -11,6 +11,7 @@ import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.ItemAnimalAndFlowerRowBinding
 import ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower
 import ir.erfan_mh_at.test_ba_salam.other.commonLetters
+import ir.erfan_mh_at.test_ba_salam.other.enNumberToFa
 
 class AnimalAndFlowerAdapter :
     RecyclerView.Adapter<AnimalAndFlowerAdapter.AnimalAndFlowerViewHolder>() {
@@ -59,7 +60,7 @@ class AnimalAndFlowerAdapter :
 
             tvNumberOfCommonLetters.text = context.getString(
                 R.string.number_of_common_letters,
-                commonLetters(animalName, flowerName).length
+                commonLetters(animalName, flowerName).length.toString().enNumberToFa()
             )
 
             Glide.with(holder.itemView)
