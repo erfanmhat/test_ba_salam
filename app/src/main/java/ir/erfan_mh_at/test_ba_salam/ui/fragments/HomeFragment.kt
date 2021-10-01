@@ -39,10 +39,10 @@ class HomeFragment : Fragment() {
     private fun configure() {
         setupRecyclerView()
         setOnClicks()
+        setupSwipeRefreshLayout()
     }
 
     private fun observeToObservers() {
-        animalAndFlowerViewModel.callAnimalAndFlowerApiAndHandleResource()
         animalAndFlowerViewModel.animalAndFlowerLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
@@ -84,6 +84,13 @@ class HomeFragment : Fragment() {
 
         mainActivity.icBackOnClickListener = {
             (activity as MainActivity).finish()
+        }
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            animalAndFlowerViewModel.callAnimalAndFlowerApiAndHandleResource()
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 }

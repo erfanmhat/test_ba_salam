@@ -1,6 +1,7 @@
 package ir.erfan_mh_at.test_ba_salam.ui.viewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,6 +24,10 @@ class AnimalAndFlowerViewModel @Inject constructor(
         MutableLiveData()
     val animalAndFlowerLiveData =
         _animalAndFlowerMutableLiveData as LiveData<Resource<List<AnimalAndFlower>>>
+
+    init {
+        callAnimalAndFlowerApiAndHandleResource()
+    }
 
     fun callAnimalAndFlowerApiAndHandleResource() = viewModelScope.launch {
         _animalAndFlowerMutableLiveData.postValue(Resource.Loading())
