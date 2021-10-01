@@ -10,7 +10,9 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_infoFragment"
-            app:destination="@id/infoFragment" />
+            app:destination="@id/infoFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -18,7 +20,9 @@
         android:label="InfoFragment" >
         <action
             android:id="@+id/action_infoFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
         <argument android:name="animalAndFlower"
             app:argType="ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower" />
     </fragment>

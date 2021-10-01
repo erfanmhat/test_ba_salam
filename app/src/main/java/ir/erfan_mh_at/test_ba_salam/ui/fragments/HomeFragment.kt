@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentHomeBinding
 import ir.erfan_mh_at.test_ba_salam.other.Resource
 import ir.erfan_mh_at.test_ba_salam.ui.MainActivity
 import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerAdapter
 import ir.erfan_mh_at.test_ba_salam.ui.viewModels.AnimalAndFlowerViewModel
 
-@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val animalAndFlowerViewModel: AnimalAndFlowerViewModel by viewModels()
+    private lateinit var animalAndFlowerViewModel: AnimalAndFlowerViewModel
     private lateinit var animalAndFlowerAdapter: AnimalAndFlowerAdapter
     private lateinit var binding: FragmentHomeBinding
 
@@ -37,6 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun configure() {
+        animalAndFlowerViewModel = (activity as MainActivity).animalAndFlowerViewModel
         setupRecyclerView()
         setOnClicks()
         setupSwipeRefreshLayout()

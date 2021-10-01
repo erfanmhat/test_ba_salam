@@ -2,17 +2,21 @@ package ir.erfan_mh_at.test_ba_salam.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.ActivityMainBinding
+import ir.erfan_mh_at.test_ba_salam.ui.viewModels.AnimalAndFlowerViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    lateinit var animalAndFlowerViewModel: AnimalAndFlowerViewModel
 
     var icBackOnClickListener: (() -> Unit)? = null
     var icMenuOnClickListener: (() -> Unit)? = null
     var icSearchOnClickListener: (() -> Unit)? = null
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun configure() {
         setSupportActionBar(binding.toolbar)
+        setupViewModels()
         setOnClicks()
+    }
+
+    private fun setupViewModels() {
+        animalAndFlowerViewModel = ViewModelProvider(this).get(AnimalAndFlowerViewModel::class.java)
     }
 
     private fun setOnClicks() {
