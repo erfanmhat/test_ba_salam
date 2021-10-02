@@ -46,7 +46,7 @@
                 android:fontFamily="@font/iranian_sans"
                 android:text="@string/toolbar_title"
                 android:textColor="@color/toolbar_back_and_text"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginRight="12dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
