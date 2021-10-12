@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.ui.adapters
+package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,7 +1,7 @@
-package ir.erfan_mh_at.test_ba_salam.data.api
+package ir.erfan_mh_at.test_ba_salam.data.remote
 
-import ir.erfan_mh_at.test_ba_salam.data.api.responses.AnimalResponse
-import ir.erfan_mh_at.test_ba_salam.data.api.responses.FlowerResponse
+import ir.erfan_mh_at.test_ba_salam.data.remote.response.AnimalResponse
+import ir.erfan_mh_at.test_ba_salam.data.remote.response.FlowerResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

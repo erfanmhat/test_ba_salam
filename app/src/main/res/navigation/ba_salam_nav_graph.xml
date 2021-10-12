@@ -2,37 +2,37 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ba_salam_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/animalAndFlowerListFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="ir.erfan_mh_at.test_ba_salam.ui.fragments.HomeFragment"
-        android:label="HomeFragment">
+        android:id="@+id/animalAndFlowerListFragment"
+        android:name="ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list.AnimalAndFlowerListFragment"
+        android:label="AnimalAndFlowerListFragment">
         <action
-            android:id="@+id/action_homeFragment_to_infoFragment"
-            app:destination="@id/infoFragment"
+            android:id="@+id/action_animalAndFlowerListFragment_to_animalAndFlowerInfoFragment"
+            app:destination="@id/animalAndFlowerInfoFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/homeFragment"
+            app:popUpTo="@id/animalAndFlowerListFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/infoFragment"
-        android:name="ir.erfan_mh_at.test_ba_salam.ui.fragments.InfoFragment"
-        android:label="InfoFragment">
+        android:id="@+id/animalAndFlowerInfoFragment"
+        android:name="ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_info.AnimalAndFlowerInfoFragment"
+        android:label="AnimalAndFlowerInfoFragment">
         <action
-            android:id="@+id/action_infoFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_animalAndFlowerInfoFragment_to_animalAndFlowerListFragment"
+            app:destination="@id/animalAndFlowerListFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/homeFragment"
+            app:popUpTo="@id/animalAndFlowerListFragment"
             app:popUpToInclusive="true" />
         <argument
             android:name="animalAndFlower"
-            app:argType="ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower" />
+            app:argType="ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower" />
     </fragment>
 </navigation>

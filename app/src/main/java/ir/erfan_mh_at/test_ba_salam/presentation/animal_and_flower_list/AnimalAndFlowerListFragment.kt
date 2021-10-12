@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.ui.fragments
+package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list
 
 import android.os.Bundle
 import android.view.*
@@ -6,24 +6,22 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ir.erfan_mh_at.test_ba_salam.databinding.FragmentHomeBinding
-import ir.erfan_mh_at.test_ba_salam.other.Resource
-import ir.erfan_mh_at.test_ba_salam.ui.MainActivity
-import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerAdapter
-import ir.erfan_mh_at.test_ba_salam.ui.viewModels.AnimalAndFlowerViewModel
+import ir.erfan_mh_at.test_ba_salam.common.Resource
+import ir.erfan_mh_at.test_ba_salam.databinding.FragmentAnimalAndFlowerListBinding
+import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
 
-class HomeFragment : Fragment() {
+class AnimalAndFlowerListFragment : Fragment() {
 
     private lateinit var animalAndFlowerViewModel: AnimalAndFlowerViewModel
     private lateinit var animalAndFlowerAdapter: AnimalAndFlowerAdapter
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentAnimalAndFlowerListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentAnimalAndFlowerListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -65,7 +63,8 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
         animalAndFlowerAdapter.setCircleOnClickListener { animalAndFlower ->
-            val action = HomeFragmentDirections.actionHomeFragmentToInfoFragment(animalAndFlower)
+            val action = AnimalAndFlowerListFragmentDirections
+                .actionAnimalAndFlowerListFragmentToAnimalAndFlowerInfoFragment(animalAndFlower)
             findNavController().navigate(action)
         }
     }

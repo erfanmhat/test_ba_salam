@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.ui.adapters
+package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.ItemAnimalAndFlowerRowBinding
-import ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower
-import ir.erfan_mh_at.test_ba_salam.other.commonLetters
-import ir.erfan_mh_at.test_ba_salam.other.enNumberToFa
+import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
+import ir.erfan_mh_at.test_ba_salam.common.commonLetters
+import ir.erfan_mh_at.test_ba_salam.common.enNumberToFa
 
 class AnimalAndFlowerAdapter :
     RecyclerView.Adapter<AnimalAndFlowerAdapter.AnimalAndFlowerViewHolder>() {

@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.other
+package ir.erfan_mh_at.test_ba_salam.common
 
 object Constants {
     const val BASE_URL = "https://kashkool.basalam.com"

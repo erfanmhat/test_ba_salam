@@ -1,11 +1,11 @@
-package ir.erfan_mh_at.test_ba_salam.ui
+package ir.erfan_mh_at.test_ba_salam.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.ActivityMainBinding
-import ir.erfan_mh_at.test_ba_salam.ui.viewModels.AnimalAndFlowerViewModel
+import ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list.AnimalAndFlowerViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

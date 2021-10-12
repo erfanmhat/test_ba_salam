@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test_ba_salam"
         tools:targetApi="m">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name="ir.erfan_mh_at.test_ba_salam.presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

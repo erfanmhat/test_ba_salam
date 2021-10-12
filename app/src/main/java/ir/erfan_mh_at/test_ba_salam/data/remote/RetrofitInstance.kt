@@ -1,6 +1,6 @@
-package ir.erfan_mh_at.test_ba_salam.data.api
+package ir.erfan_mh_at.test_ba_salam.data.remote
 
-import ir.erfan_mh_at.test_ba_salam.other.Constants.BASE_URL
+import ir.erfan_mh_at.test_ba_salam.common.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

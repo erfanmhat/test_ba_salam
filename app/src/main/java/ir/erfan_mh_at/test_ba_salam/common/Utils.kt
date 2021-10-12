@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.other
+package ir.erfan_mh_at.test_ba_salam.common
 
 import android.app.Application
 import android.content.Context
@@ -6,9 +6,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import ir.erfan_mh_at.test_ba_salam.BaseApplication
-import ir.erfan_mh_at.test_ba_salam.data.models.Animal
-import ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower
-import ir.erfan_mh_at.test_ba_salam.data.models.Flower
+import ir.erfan_mh_at.test_ba_salam.domain.model.Animal
+import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
+import ir.erfan_mh_at.test_ba_salam.domain.model.Flower
 import retrofit2.Response
 import java.io.IOException
 
@@ -80,16 +80,23 @@ fun mergeAnimalAndFlowerList(
 }
 
 fun commonLetters(str1: String, str2: String): String {
-    val commonLetters: MutableSet<Char> = mutableSetOf()
+    var result = ""
+    val commonLettersSet: MutableSet<Char> = mutableSetOf()
     for (ch1 in str1) {
         for (ch2 in str2) {
             if (ch1 == ch2) {
-                commonLetters.add(ch1)
+                commonLettersSet.add(ch1)
             }
         }
     }
-    return commonLetters.toString().filter { it != '[' }.filter { it != ']' }.filter { it != ',' }
-        .filter { it != ' ' }
+
+    for (ch in commonLettersSet) {
+        when (ch) {
+            '[', ']', ',', ' ' -> Unit
+            else -> result += ch
+        }
+    }
+    return result
 }
 
 fun String.addComma(): String {

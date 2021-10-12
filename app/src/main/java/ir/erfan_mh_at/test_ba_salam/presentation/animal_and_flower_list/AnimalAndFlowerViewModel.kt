@@ -1,15 +1,16 @@
-package ir.erfan_mh_at.test_ba_salam.ui.viewModels
+package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.erfan_mh_at.test_ba_salam.data.repositorys.MainRepository
-import ir.erfan_mh_at.test_ba_salam.data.models.AnimalAndFlower
-import ir.erfan_mh_at.test_ba_salam.other.*
+import ir.erfan_mh_at.test_ba_salam.common.Resource
+import ir.erfan_mh_at.test_ba_salam.common.mergeAnimalAndFlowerList
+import ir.erfan_mh_at.test_ba_salam.common.safeCallApi
+import ir.erfan_mh_at.test_ba_salam.data.repository.MainRepository
+import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject

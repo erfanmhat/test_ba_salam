@@ -1,4 +1,4 @@
-package ir.erfan_mh_at.test_ba_salam.ui.fragments
+package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_info
 
 import android.os.Bundle
 import android.view.*
@@ -8,25 +8,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import ir.erfan_mh_at.test_ba_salam.R
-import ir.erfan_mh_at.test_ba_salam.databinding.FragmentInfoBinding
-import ir.erfan_mh_at.test_ba_salam.other.addComma
-import ir.erfan_mh_at.test_ba_salam.other.commonLetters
-import ir.erfan_mh_at.test_ba_salam.other.enNumberToFa
-import ir.erfan_mh_at.test_ba_salam.ui.MainActivity
-import ir.erfan_mh_at.test_ba_salam.ui.adapters.AnimalAndFlowerImageAdapter
+import ir.erfan_mh_at.test_ba_salam.common.addComma
+import ir.erfan_mh_at.test_ba_salam.common.commonLetters
+import ir.erfan_mh_at.test_ba_salam.common.enNumberToFa
+import ir.erfan_mh_at.test_ba_salam.databinding.FragmentAnimalAndFlowerInfoBinding
+import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
 
-class InfoFragment : Fragment() {
+class AnimalAndFlowerInfoFragment : Fragment() {
 
-    private val args by navArgs<InfoFragmentArgs>()
+    private val args by navArgs<AnimalAndFlowerInfoFragmentArgs>()
 
-    private lateinit var binding: FragmentInfoBinding
+    private lateinit var binding: FragmentAnimalAndFlowerInfoBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentInfoBinding.inflate(inflater, container, false)
+        binding = FragmentAnimalAndFlowerInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -75,7 +74,7 @@ class InfoFragment : Fragment() {
         }
 
         mainActivity.icBackOnClickListener = {
-            findNavController().navigate(R.id.action_infoFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_animalAndFlowerInfoFragment_to_animalAndFlowerListFragment)
         }
     }
 }
