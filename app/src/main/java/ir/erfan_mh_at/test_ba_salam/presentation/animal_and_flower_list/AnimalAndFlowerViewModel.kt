@@ -9,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.erfan_mh_at.test_ba_salam.common.Resource
 import ir.erfan_mh_at.test_ba_salam.common.mergeAnimalAndFlowerList
 import ir.erfan_mh_at.test_ba_salam.common.safeCallApi
+import ir.erfan_mh_at.test_ba_salam.data.remote.dto.toAnimal
+import ir.erfan_mh_at.test_ba_salam.data.remote.dto.toFlower
 import ir.erfan_mh_at.test_ba_salam.data.repository.MainRepository
 import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
 import kotlinx.coroutines.async
@@ -66,8 +68,8 @@ class AnimalAndFlowerViewModel @Inject constructor(
                             if (animalResource.data != null && flowerResource.data != null) {
                                 Resource.Success(
                                     mergeAnimalAndFlowerList(
-                                        animalResource.data.data,
-                                        flowerResource.data.data
+                                        animalResource.data.data.map { it.toAnimal() },
+                                        flowerResource.data.data.map { it.toFlower() }
                                     )
                                 )
                             } else {
