@@ -1,10 +1,16 @@
 package ir.erfan_mh_at.test_ba_salam.di
 
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ir.erfan_mh_at.test_ba_salam.common.Constants.BASE_URL
+import ir.erfan_mh_at.test_ba_salam.common.Constants.BA_SALAM_DATABASE_NAME
+import ir.erfan_mh_at.test_ba_salam.data.database.BaSalamDatabase
 import ir.erfan_mh_at.test_ba_salam.data.remote.BaSalamApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,4 +44,14 @@ object AppModule {
     @Provides
     @Singleton
     fun provideAPI(retrofit: Retrofit): BaSalamApi = retrofit.create(BaSalamApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ): RoomDatabase = Room.databaseBuilder(
+        context,
+        BaSalamDatabase::class.java,
+        BA_SALAM_DATABASE_NAME
+    ).build()
 }
