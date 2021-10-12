@@ -39,11 +39,11 @@ class AnimalAndFlowerListFragment : Fragment() {
     }
 
     private fun observeToObservers() {
-        animalAndFlowerViewModel.animalAndFlowerLiveData.observe(viewLifecycleOwner) {
+        animalAndFlowerViewModel.animalAndFlowerStateFlow.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     binding.pbLoading.visibility = View.GONE
-                    animalAndFlowerAdapter.submitList(it.data ?: listOf())
+                    animalAndFlowerAdapter.submitList(it ?: listOf())
                 }
                 is Resource.Loading -> {
                     binding.pbLoading.visibility = View.VISIBLE

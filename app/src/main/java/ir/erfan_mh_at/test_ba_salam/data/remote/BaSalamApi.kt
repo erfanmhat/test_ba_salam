@@ -12,11 +12,11 @@ interface BaSalamApi {
     suspend fun getAnimals(
         @Query("kind")
         kind: String
-    ): Response<GetAnimalsResponse>
+    ): GetAnimalsResponse
 
     @GET("intern.android")
     suspend fun getFlowers(
         @Query("kind")
         kind: String
-    ): Response<GetFlowersResponse>
+    ): GetFlowersResponse
 }

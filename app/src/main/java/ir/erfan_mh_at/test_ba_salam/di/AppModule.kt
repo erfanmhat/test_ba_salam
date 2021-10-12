@@ -12,6 +12,8 @@ import ir.erfan_mh_at.test_ba_salam.common.Constants.BASE_URL
 import ir.erfan_mh_at.test_ba_salam.common.Constants.BA_SALAM_DATABASE_NAME
 import ir.erfan_mh_at.test_ba_salam.data.database.BaSalamDatabase
 import ir.erfan_mh_at.test_ba_salam.data.remote.BaSalamApi
+import ir.erfan_mh_at.test_ba_salam.data.repository.MainRepositoryImpl
+import ir.erfan_mh_at.test_ba_salam.domain.repository.MainRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -54,4 +56,8 @@ object AppModule {
         BaSalamDatabase::class.java,
         BA_SALAM_DATABASE_NAME
     ).build()
+
+    @Provides
+    @Singleton
+    fun provideMainRepository(api: BaSalamApi): MainRepository = MainRepositoryImpl(api)
 }
