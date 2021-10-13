@@ -2,17 +2,17 @@ package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.erfan_mh_at.test_ba_salam.domain.use_case.GetAnimalsUseCase
-import ir.erfan_mh_at.test_ba_salam.domain.use_case.GetFlowersUseCase
+import ir.erfan_mh_at.test_ba_salam.common.Resource
+import ir.erfan_mh_at.test_ba_salam.domain.use_case.GetAnimalAndFlowerUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AnimalAndFlowerViewModel @Inject constructor(
-    private val getAnimalsUseCase: GetAnimalsUseCase,
-    private val getFlowersUseCase: GetFlowersUseCase
+    private val getAnimalAndFlowerUseCase: GetAnimalAndFlowerUseCase
 ) : ViewModel() {
 
     private val _animalAndFlowerMutableStateFlow: MutableStateFlow<AnimalAndFlowerListState> =
@@ -21,12 +21,20 @@ class AnimalAndFlowerViewModel @Inject constructor(
         _animalAndFlowerMutableStateFlow as StateFlow<AnimalAndFlowerListState>
 
     init {
-        callAnimalAndFlowerApiAndHandleResource()
+        setupAnimalAndFlowerFlow()
     }
 
-    fun callAnimalAndFlowerApiAndHandleResource() = viewModelScope.launch {
-        _animalAndFlowerMutableStateFlow.emit(AnimalAndFlowerListState.Loading)
-        getAnimalsUseCase.execute()
-        getFlowersUseCase.execute()
+    fun setupAnimalAndFlowerFlow() = viewModelScope.launch {
+        getAnimalAndFlowerUseCase.execute().collect {
+            _animalAndFlowerMutableStateFlow.emit(
+                when (it) {
+                    is Resource.Success -> AnimalAndFlowerListState.Success(it.data ?: emptyList())
+                    is Resource.Loading -> AnimalAndFlowerListState.Loading
+                    is Resource.Error -> AnimalAndFlowerListState.Error(
+                        it.message ?: "an unexpected error !"
+                    )
+                }
+            )
+        }
     }
 }

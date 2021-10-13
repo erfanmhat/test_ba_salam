@@ -1,17 +1,18 @@
 package ir.erfan_mh_at.test_ba_salam.data.database
 
 import androidx.room.*
-import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerDto
+import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnimalAndFlowerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsertAnimalAndFlower(animalAndFlower: AnimalAndFlowerDto)
+    suspend fun upsertAnimalAndFlower(animalAndFlowerLocal: AnimalAndFlowerLocalDto)
 
     @Delete
-    fun deleteAnimalAndFlower(animalAndFlower: AnimalAndFlowerDto)
+    suspend fun deleteAnimalAndFlower(animalAndFlowerLocal: AnimalAndFlowerLocalDto)
 
     @Query("SELECT * FROM animal_and_flower_table")
-    fun getAnimalAndFlower(): List<AnimalAndFlowerDto>
+    suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto>
 }

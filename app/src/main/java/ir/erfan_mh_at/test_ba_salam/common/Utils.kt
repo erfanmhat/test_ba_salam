@@ -1,36 +1,17 @@
 package ir.erfan_mh_at.test_ba_salam.common
 
-import ir.erfan_mh_at.test_ba_salam.domain.model.Animal
-import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
-import ir.erfan_mh_at.test_ba_salam.domain.model.Flower
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
-import java.io.IOException
-import java.lang.Exception
-
-fun <T> handleRemoteResponse(callAPI: suspend () -> T): Flow<Resource<T>> = flow {
-    try {
-        emit(Resource.Loading<T>())
-        val result = callAPI()
-        emit(Resource.Success(result))
-    } catch (e: HttpException) {
-        emit(Resource.Error<T>(e.localizedMessage ?: "an unexpected error !"))
-    } catch (e: IOException) {
-        emit(Resource.Error<T>("Couldn't reach server. Check your internet connection !"))
-    } catch (e: Exception) {
-        emit(Resource.Error<T>("an unexpected error !"))
-    }
-}
+import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
+import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalLocalDto
+import ir.erfan_mh_at.test_ba_salam.data.database.dto.FlowerLocalDto
 
 fun mergeAnimalAndFlowerList(
-    animalList: List<Animal>,
-    flowerList: List<Flower>
-): List<AnimalAndFlower> {
-    val result: MutableList<AnimalAndFlower> = mutableListOf()
+    animalList: List<AnimalLocalDto>,
+    flowerList: List<FlowerLocalDto>
+): List<AnimalAndFlowerLocalDto> {
+    val result: MutableList<AnimalAndFlowerLocalDto> = mutableListOf()
     for (animal in animalList) {
         val flower = flowerList.find { flower -> animal.id == flower.id }
-        if (flower != null) result.add(AnimalAndFlower(animal, flower))
+        if (flower != null) result.add(AnimalAndFlowerLocalDto(animal, flower))
     }
     return result
 }

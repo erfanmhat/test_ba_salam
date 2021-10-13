@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
 
 @Entity(tableName = "animal_and_flower_table")
-data class AnimalAndFlowerDto(
+data class AnimalAndFlowerLocalDto(
     val animal: AnimalLocalDto,
     val flower: FlowerLocalDto,
 
@@ -13,7 +13,7 @@ data class AnimalAndFlowerDto(
     val id: Int? = null
 )
 
-fun AnimalAndFlowerDto.toAnimalAndFlower() = AnimalAndFlower(
+fun AnimalAndFlowerLocalDto.toAnimalAndFlower() = AnimalAndFlower(
     animal = this.animal.toAnimal(),
     flower = this.flower.toFlower()
 )

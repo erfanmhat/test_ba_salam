@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ir.erfan_mh_at.test_ba_salam.common.Resource
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentAnimalAndFlowerListBinding
 import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class AnimalAndFlowerListFragment : Fragment() {
 
@@ -38,19 +41,22 @@ class AnimalAndFlowerListFragment : Fragment() {
         setupSwipeRefreshLayout()
     }
 
-    private fun observeToObservers() {
-        animalAndFlowerViewModel.animalAndFlowerStateFlow.observe(viewLifecycleOwner) {
+    private fun observeToObservers() = lifecycleScope.launch {
+        animalAndFlowerViewModel.animalAndFlowerStateFlow.collect {
             when (it) {
-                is Resource.Success -> {
+                is AnimalAndFlowerListState.Success -> {
                     binding.pbLoading.visibility = View.GONE
-                    animalAndFlowerAdapter.submitList(it ?: listOf())
+                    animalAndFlowerAdapter.submitList(it.animalAndFlowerList)
                 }
-                is Resource.Loading -> {
+                is AnimalAndFlowerListState.Loading -> {
                     binding.pbLoading.visibility = View.VISIBLE
                 }
-                is Resource.Error -> {
+                is AnimalAndFlowerListState.Error -> {
                     binding.pbLoading.visibility = View.GONE
-                    Toast.makeText(context, it.message ?: "error !", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, it.error, Toast.LENGTH_LONG).show()
+                }
+                is AnimalAndFlowerListState.Empty -> {
+                    TODO("")
                 }
             }
         }
@@ -86,7 +92,7 @@ class AnimalAndFlowerListFragment : Fragment() {
 
     private fun setupSwipeRefreshLayout() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            animalAndFlowerViewModel.callAnimalAndFlowerApiAndHandleResource()
+            animalAndFlowerViewModel.setupAnimalAndFlowerFlow()
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }

@@ -51,7 +51,7 @@ object AppModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): RoomDatabase = Room.databaseBuilder(
+    ): BaSalamDatabase = Room.databaseBuilder(
         context,
         BaSalamDatabase::class.java,
         BA_SALAM_DATABASE_NAME
@@ -59,5 +59,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMainRepository(api: BaSalamApi): MainRepository = MainRepositoryImpl(api)
+    fun provideMainRepository(api: BaSalamApi, db: BaSalamDatabase): MainRepository =
+        MainRepositoryImpl(api, db)
 }
