@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AnimalAndFlowerViewModel @Inject constructor(
     private val getAnimalAndFlowerUseCase: GetAnimalAndFlowerUseCase
-) : ViewModel() {
+) : ViewModel(), LifecycleObserver {
 
     private val _animalAndFlowerMutableStateFlow: MutableStateFlow<AnimalAndFlowerListState> =
         MutableStateFlow(AnimalAndFlowerListState.Empty)

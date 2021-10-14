@@ -2,15 +2,11 @@ package ir.erfan_mh_at.test_ba_salam.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.databinding.ActivityMainBinding
-import ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list.AnimalAndFlowerViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    lateinit var animalAndFlowerViewModel: AnimalAndFlowerViewModel
 
     var icBackOnClickListener: (() -> Unit)? = null
     var icMenuOnClickListener: (() -> Unit)? = null
@@ -27,12 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun configure() {
         setSupportActionBar(binding.toolbar)
-        setupViewModels()
         setOnClicks()
-    }
-
-    private fun setupViewModels() {
-        animalAndFlowerViewModel = ViewModelProvider(this).get(AnimalAndFlowerViewModel::class.java)
     }
 
     private fun setOnClicks() {

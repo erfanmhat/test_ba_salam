@@ -10,7 +10,6 @@ import ir.erfan_mh_at.test_ba_salam.data.remote.dto.toAnimalLocalDto
 import ir.erfan_mh_at.test_ba_salam.data.remote.dto.toFlowerLocalDto
 import ir.erfan_mh_at.test_ba_salam.domain.repository.MainRepository
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(

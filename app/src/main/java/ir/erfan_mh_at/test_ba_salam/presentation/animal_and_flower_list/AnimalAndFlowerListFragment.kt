@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ir.erfan_mh_at.test_ba_salam.common.Resource
+import dagger.hilt.android.AndroidEntryPoint
+import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentAnimalAndFlowerListBinding
 import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AnimalAndFlowerListFragment : Fragment() {
 
-    private lateinit var animalAndFlowerViewModel: AnimalAndFlowerViewModel
+    private val animalAndFlowerViewModel: AnimalAndFlowerViewModel by hiltNavGraphViewModels(R.id.ba_salam_nav_graph)
     private lateinit var animalAndFlowerAdapter: AnimalAndFlowerAdapter
     private lateinit var binding: FragmentAnimalAndFlowerListBinding
 
@@ -31,17 +34,16 @@ class AnimalAndFlowerListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         configure()
-        observeToObservers()
+        collectAnimalAndFlowerStateFlow()
     }
 
     private fun configure() {
-        animalAndFlowerViewModel = (activity as MainActivity).animalAndFlowerViewModel
         setupRecyclerView()
         setOnClicks()
         setupSwipeRefreshLayout()
     }
 
-    private fun observeToObservers() = lifecycleScope.launch {
+    private fun collectAnimalAndFlowerStateFlow() = lifecycleScope.launch {
         animalAndFlowerViewModel.animalAndFlowerStateFlow.collect {
             when (it) {
                 is AnimalAndFlowerListState.Success -> {
@@ -55,9 +57,7 @@ class AnimalAndFlowerListFragment : Fragment() {
                     binding.pbLoading.visibility = View.GONE
                     Toast.makeText(context, it.error, Toast.LENGTH_LONG).show()
                 }
-                is AnimalAndFlowerListState.Empty -> {
-                    TODO("")
-                }
+                is AnimalAndFlowerListState.Empty -> Unit
             }
         }
     }
