@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.databinding.ItemAnimalAndFlowerImageBinding
 
-class AnimalAndFlowerImageAdapter(private val imageList: List<String>) :
+class AnimalAndFlowerImageAdapter :
     RecyclerView.Adapter<AnimalAndFlowerImageAdapter.AnimalAndFlowerImageViewHolder>() {
 
     inner class AnimalAndFlowerImageViewHolder(b: ItemAnimalAndFlowerImageBinding) :
@@ -15,6 +15,7 @@ class AnimalAndFlowerImageAdapter(private val imageList: List<String>) :
         val binding: ItemAnimalAndFlowerImageBinding = b
     }
 
+    private var imageList: List<String> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,4 +40,9 @@ class AnimalAndFlowerImageAdapter(private val imageList: List<String>) :
     }
 
     override fun getItemCount() = imageList.size
+
+    fun submitList(newList: List<String>) {
+        imageList = newList
+        notifyDataSetChanged()
+    }
 }
