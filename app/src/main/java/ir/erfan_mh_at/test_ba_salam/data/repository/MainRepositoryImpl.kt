@@ -18,19 +18,21 @@ class MainRepositoryImpl @Inject constructor(
 ) : MainRepository {
     override suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto> {
         val animalAndFlowerLocal = db.getDao().getAnimalAndFlower()
-        if (animalAndFlowerLocal.isNotEmpty()) {
-            return animalAndFlowerLocal
+        return if (animalAndFlowerLocal.isNotEmpty()) {
+            animalAndFlowerLocal
         } else {
-            callAnimalAndFlowerAPI { animalAndFlowerList ->
-                for (item in animalAndFlowerList) {
-                    db.getDao().upsertAnimalAndFlower(item)
-                }
+            var animalAndFlowerList: List<AnimalAndFlowerLocalDto> = emptyList()
+            callAnimalAndFlowerAPI {
+                animalAndFlowerList = it
             }
+            for (item in animalAndFlowerList) {
+                db.getDao().upsertAnimalAndFlower(item)
+            }
+            animalAndFlowerList
         }
-        return db.getDao().getAnimalAndFlower()
     }
 
-    private suspend fun callAnimalAndFlowerAPI(resultCallBack: suspend (List<AnimalAndFlowerLocalDto>) -> Unit) {
+    private suspend fun callAnimalAndFlowerAPI(resultCallBack: (List<AnimalAndFlowerLocalDto>) -> Unit) {
         withContext(Dispatchers.IO) {
             val animalDeferred = async(Dispatchers.IO) { api.getAnimals(QUERY_KEY_ANIMAL) }
             val flowerDeferred = async(Dispatchers.IO) { api.getFlowers(QUERY_KEY_FLOWER) }
