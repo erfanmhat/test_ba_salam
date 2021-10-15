@@ -12,5 +12,5 @@ import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
 @TypeConverters(DatabaseConverter::class)
 abstract class BaSalamDatabase : RoomDatabase() {
 
-    abstract fun getDao(): AnimalAndFlowerDao
+    abstract fun getAnimalAndFlowerDAO(): AnimalAndFlowerDAO
 }

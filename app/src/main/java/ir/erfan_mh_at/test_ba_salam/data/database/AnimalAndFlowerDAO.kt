@@ -5,7 +5,7 @@ import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface AnimalAndFlowerDao {
+interface AnimalAndFlowerDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertAnimalAndFlower(animalAndFlowerLocal: AnimalAndFlowerLocalDto)
@@ -15,4 +15,7 @@ interface AnimalAndFlowerDao {
 
     @Query("SELECT * FROM animal_and_flower_table")
     suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto>
+
+    @Query("SELECT timestamp FROM animal_and_flower_table WHERE id = :animalAndFlowerId")
+    suspend fun getAnimalAndFlowerTimestampWithId(animalAndFlowerId: Int): Long
 }

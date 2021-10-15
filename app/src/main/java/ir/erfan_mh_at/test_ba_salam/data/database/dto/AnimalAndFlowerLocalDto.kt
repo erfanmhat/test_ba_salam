@@ -8,9 +8,9 @@ import ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower
 data class AnimalAndFlowerLocalDto(
     val animal: AnimalLocalDto,
     val flower: FlowerLocalDto,
-
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null
+    var id: Int,
+    val timestamp: Long = System.currentTimeMillis()
 )
 
 fun AnimalAndFlowerLocalDto.toAnimalAndFlower() = AnimalAndFlower(

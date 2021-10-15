@@ -2,7 +2,6 @@ package ir.erfan_mh_at.test_ba_salam.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ir.erfan_mh_at.test_ba_salam.common.Constants.BASE_URL
 import ir.erfan_mh_at.test_ba_salam.common.Constants.BA_SALAM_DATABASE_NAME
+import ir.erfan_mh_at.test_ba_salam.data.database.AnimalAndFlowerDAO
 import ir.erfan_mh_at.test_ba_salam.data.database.BaSalamDatabase
 import ir.erfan_mh_at.test_ba_salam.data.remote.BaSalamApi
 import ir.erfan_mh_at.test_ba_salam.data.repository.MainRepositoryImpl
@@ -59,6 +59,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMainRepository(api: BaSalamApi, db: BaSalamDatabase): MainRepository =
-        MainRepositoryImpl(api, db)
+    fun provideAnimalAndFlowerDAO(db: BaSalamDatabase) = db.getAnimalAndFlowerDAO()
+
+    @Provides
+    @Singleton
+    fun provideMainRepository(api: BaSalamApi, animalAndFlowerDAO: AnimalAndFlowerDAO): MainRepository =
+        MainRepositoryImpl(api, animalAndFlowerDAO)
 }

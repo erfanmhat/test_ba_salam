@@ -3,7 +3,8 @@ package ir.erfan_mh_at.test_ba_salam.data.repository
 import ir.erfan_mh_at.test_ba_salam.common.Constants.QUERY_KEY_ANIMAL
 import ir.erfan_mh_at.test_ba_salam.common.Constants.QUERY_KEY_FLOWER
 import ir.erfan_mh_at.test_ba_salam.common.mergeAnimalAndFlowerList
-import ir.erfan_mh_at.test_ba_salam.data.database.BaSalamDatabase
+import ir.erfan_mh_at.test_ba_salam.common.shouldUpdateTheInformationFromRemote
+import ir.erfan_mh_at.test_ba_salam.data.database.AnimalAndFlowerDAO
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
 import ir.erfan_mh_at.test_ba_salam.data.remote.BaSalamApi
 import ir.erfan_mh_at.test_ba_salam.data.remote.dto.toAnimalLocalDto
@@ -14,22 +15,31 @@ import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
     private val api: BaSalamApi,
-    private val db: BaSalamDatabase
+    private val animalAndFlowerDAO: AnimalAndFlowerDAO,
 ) : MainRepository {
     override suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto> {
-        val animalAndFlowerLocal = db.getDao().getAnimalAndFlower()
+        val animalAndFlowerLocal = animalAndFlowerDAO.getAnimalAndFlower()
         return if (animalAndFlowerLocal.isNotEmpty()) {
-            animalAndFlowerLocal
+            if (shouldUpdateTheInformationFromRemote(animalAndFlowerLocal[0].timestamp)) {
+                getAnimalAndFlowerFromAPIAndSaveToDatabase()
+            } else {
+                animalAndFlowerLocal
+            }
         } else {
-            var animalAndFlowerList: List<AnimalAndFlowerLocalDto> = emptyList()
-            callAnimalAndFlowerAPI {
-                animalAndFlowerList = it
-            }
-            for (item in animalAndFlowerList) {
-                db.getDao().upsertAnimalAndFlower(item)
-            }
-            animalAndFlowerList
+            getAnimalAndFlowerFromAPIAndSaveToDatabase()
         }
+    }
+
+    private suspend fun getAnimalAndFlowerFromAPIAndSaveToDatabase(): List<AnimalAndFlowerLocalDto> {
+        var animalAndFlowerList: List<AnimalAndFlowerLocalDto> = emptyList()
+        callAnimalAndFlowerAPI {
+            animalAndFlowerList = it
+        }
+        for (item in animalAndFlowerList) {
+            item.id = item.animal.id //this line makes replace old information with a new information (if there is an old information)
+            animalAndFlowerDAO.upsertAnimalAndFlower(item)
+        }
+        return animalAndFlowerList
     }
 
     private suspend fun callAnimalAndFlowerAPI(resultCallBack: (List<AnimalAndFlowerLocalDto>) -> Unit) {

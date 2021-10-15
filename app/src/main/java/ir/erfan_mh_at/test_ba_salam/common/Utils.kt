@@ -1,5 +1,6 @@
 package ir.erfan_mh_at.test_ba_salam.common
 
+import ir.erfan_mh_at.test_ba_salam.common.Constants.FRESH_TIMEOUT
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalLocalDto
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.FlowerLocalDto
@@ -11,7 +12,7 @@ fun mergeAnimalAndFlowerList(
     val result: MutableList<AnimalAndFlowerLocalDto> = mutableListOf()
     for (animal in animalList) {
         val flower = flowerList.find { flower -> animal.id == flower.id }
-        if (flower != null) result.add(AnimalAndFlowerLocalDto(animal, flower))
+        if (flower != null) result.add(AnimalAndFlowerLocalDto(animal, flower, animal.id))
     }
     return result
 }
@@ -65,4 +66,9 @@ fun String.enNumberToFa(): String {
         }
     }
     return result
+}
+
+fun shouldUpdateTheInformationFromRemote(timestamp: Long): Boolean {
+    val expirationTimeMillis = timestamp + FRESH_TIMEOUT
+    return expirationTimeMillis <= System.currentTimeMillis()
 }
