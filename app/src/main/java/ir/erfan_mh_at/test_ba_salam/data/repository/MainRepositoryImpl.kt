@@ -36,7 +36,8 @@ class MainRepositoryImpl @Inject constructor(
             animalAndFlowerList = it
         }
         for (item in animalAndFlowerList) {
-            item.id = item.animal.id //this line makes replace old information with a new information (if there is an old information)
+            item.id = item.animal.id //this line makes replace old information
+            // with a new information (if there is an old information)
             animalAndFlowerDAO.upsertAnimalAndFlower(item)
         }
         return animalAndFlowerList
@@ -56,4 +57,7 @@ class MainRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun searchAnimalAndFlower(query: String): List<AnimalAndFlowerLocalDto> =
+        animalAndFlowerDAO.searchAnimalAndFlower(query)
 }

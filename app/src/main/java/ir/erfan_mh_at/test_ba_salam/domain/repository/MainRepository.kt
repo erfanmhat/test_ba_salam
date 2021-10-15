@@ -4,4 +4,6 @@ import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
 
 interface MainRepository {
     suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto>
+
+    suspend fun searchAnimalAndFlower(query: String): List<AnimalAndFlowerLocalDto>
 }

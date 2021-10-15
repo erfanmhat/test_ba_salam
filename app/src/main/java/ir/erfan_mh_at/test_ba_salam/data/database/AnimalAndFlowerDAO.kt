@@ -16,6 +16,6 @@ interface AnimalAndFlowerDAO {
     @Query("SELECT * FROM animal_and_flower_table")
     suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto>
 
-    @Query("SELECT timestamp FROM animal_and_flower_table WHERE id = :animalAndFlowerId")
-    suspend fun getAnimalAndFlowerTimestampWithId(animalAndFlowerId: Int): Long
+    @Query("SELECT * FROM animal_and_flower_table WHERE animal_name = :query OR flower_name = :query")
+    suspend fun searchAnimalAndFlower(query: String): List<AnimalAndFlowerLocalDto>
 }
