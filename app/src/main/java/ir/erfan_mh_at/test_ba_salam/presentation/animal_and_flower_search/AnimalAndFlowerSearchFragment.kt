@@ -33,9 +33,6 @@ class AnimalAndFlowerSearchFragment : Fragment() {
 
     private val animalAndFlowerSearchAdapter = AnimalAndFlowerSearchAdapter()
 
-    // this variable prevent call SearchView.onQueryTextChange function when recently opened Fragment
-    private var isRecentlyOpenedFragment = true
-
     private lateinit var searchView: SearchView
 
     private lateinit var binding: FragmentAnimalAndFlowerSearchBinding
@@ -104,7 +101,7 @@ class AnimalAndFlowerSearchFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 // if recently opened Fragment then onQueryTextChange should not be called
-                if (isRecentlyOpenedFragment) return true
+                if (animalAndFlowerSearchViewModel.isRecentlyOpenedFragment) return true
                 searchDelayJob?.cancel()
                 searchJob?.cancel()
                 searchDelayJob = lifecycleScope.launch {
@@ -149,7 +146,9 @@ class AnimalAndFlowerSearchFragment : Fragment() {
         searchView = (activity as MainActivity).binding.searchView
         searchView.apply {
             // if recently opened Fragment then set query from viewModel
-            if (isRecentlyOpenedFragment) setQuery(animalAndFlowerSearchViewModel.query, false)
+            if (animalAndFlowerSearchViewModel.isRecentlyOpenedFragment) setQuery(
+                animalAndFlowerSearchViewModel.query, false
+            )
             // focus on SearchView
             isFocusable = true
             isIconified = false
@@ -162,10 +161,10 @@ class AnimalAndFlowerSearchFragment : Fragment() {
                 }
             }
             // next lines prevent call SearchView.onQueryTextChange function when recently opened Fragment
-            isRecentlyOpenedFragment = true
+            animalAndFlowerSearchViewModel.isRecentlyOpenedFragment = true
             lifecycleScope.launch {
                 delay(1000)
-                isRecentlyOpenedFragment = false
+                animalAndFlowerSearchViewModel.isRecentlyOpenedFragment = false
             }
         }
     }

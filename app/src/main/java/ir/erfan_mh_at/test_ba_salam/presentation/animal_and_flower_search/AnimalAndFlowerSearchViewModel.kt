@@ -23,6 +23,9 @@ class AnimalAndFlowerSearchViewModel @Inject constructor(
 
     var query: String = ""
 
+    // this variable prevent call SearchView.onQueryTextChange function when recently opened Fragment
+    var isRecentlyOpenedFragment = true
+
     fun search() = viewModelScope.launch {
         if (query.isEmpty()) {
             _animalAndFlowerSearchStateFlow.emit(AnimalAndFlowerSearchState.Empty)
