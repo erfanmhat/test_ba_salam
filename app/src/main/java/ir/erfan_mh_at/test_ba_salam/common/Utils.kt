@@ -1,5 +1,8 @@
 package ir.erfan_mh_at.test_ba_salam.common
 
+import android.app.Activity
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import ir.erfan_mh_at.test_ba_salam.common.Constants.FRESH_TIMEOUT
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalLocalDto
@@ -71,4 +74,23 @@ fun String.enNumberToFa(): String {
 fun shouldUpdateTheInformationFromRemote(timestamp: Long): Boolean {
     val expirationTimeMillis = timestamp + FRESH_TIMEOUT
     return expirationTimeMillis <= System.currentTimeMillis()
+}
+
+fun hideKeyboard(activity: Activity) {
+    val view = activity.currentFocus
+    val methodManager =
+        activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    assert(view != null)
+    methodManager.hideSoftInputFromWindow(
+        view!!.windowToken,
+        InputMethodManager.HIDE_NOT_ALWAYS
+    )
+}
+
+fun showKeyboard(activity: Activity) {
+    val view = activity.currentFocus
+    val methodManager =
+        activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    assert(view != null)
+    methodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
 }

@@ -1,12 +1,9 @@
 package ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_search
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -17,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.common.Constants.SEARCH_TIME_DELAY
+import ir.erfan_mh_at.test_ba_salam.common.hideKeyboard
+import ir.erfan_mh_at.test_ba_salam.common.showKeyboard
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentAnimalAndFlowerSearchBinding
 import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
 import kotlinx.coroutines.Job
@@ -167,24 +166,5 @@ class AnimalAndFlowerSearchFragment : Fragment() {
                 animalAndFlowerSearchViewModel.isRecentlyOpenedFragment = false
             }
         }
-    }
-
-    private fun hideKeyboard(activity: Activity) {
-        val view = activity.currentFocus
-        val methodManager =
-            activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        assert(view != null)
-        methodManager.hideSoftInputFromWindow(
-            view!!.windowToken,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
-    }
-
-    private fun showKeyboard(activity: Activity) {
-        val view = activity.currentFocus
-        val methodManager =
-            activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        assert(view != null)
-        methodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 }
