@@ -40,7 +40,7 @@ class MainRepositoryImpl @Inject constructor(
             // with a new information (if there is an old information)
             animalAndFlowerDAO.upsertAnimalAndFlower(item)
         }
-        return animalAndFlowerList
+        return animalAndFlowerDAO.getAnimalAndFlower()
     }
 
     private suspend fun callAnimalAndFlowerAPI(resultCallBack: (List<AnimalAndFlowerLocalDto>) -> Unit) {
