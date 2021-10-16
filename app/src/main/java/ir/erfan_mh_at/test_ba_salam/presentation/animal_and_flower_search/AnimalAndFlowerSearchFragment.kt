@@ -7,21 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.R
 import ir.erfan_mh_at.test_ba_salam.common.Constants.SEARCH_TIME_DELAY
 import ir.erfan_mh_at.test_ba_salam.databinding.FragmentAnimalAndFlowerSearchBinding
+import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class AnimalAndFlowerSearchFragment : Fragment() {
@@ -31,6 +32,11 @@ class AnimalAndFlowerSearchFragment : Fragment() {
     )
 
     private val animalAndFlowerSearchAdapter = AnimalAndFlowerSearchAdapter()
+
+    // this variable prevent call SearchView.onQueryTextChange function when recently opened Fragment
+    private var isRecentlyOpenedFragment = true
+
+    private lateinit var searchView: SearchView
 
     private lateinit var binding: FragmentAnimalAndFlowerSearchBinding
 
@@ -49,16 +55,11 @@ class AnimalAndFlowerSearchFragment : Fragment() {
     }
 
     private fun configure() {
-        collectAnimalAndFlowerSearchStateFlow()
-        setupOnQueryTextListener()
         setupRecyclerView()
-        binding.searchView.isFocusable = true
-        binding.searchView.isIconified = false
-        binding.searchView.requestFocusFromTouch()
-        lifecycleScope.launch {
-            delay(1000)
-            activity?.let { showKeyboard(it) }
-        }
+        setOnClicks()
+        collectAnimalAndFlowerSearchStateFlow()
+        setupSearchView()
+        setupOnQueryTextListener()
     }
 
     private fun collectAnimalAndFlowerSearchStateFlow() = lifecycleScope.launch {
@@ -93,22 +94,29 @@ class AnimalAndFlowerSearchFragment : Fragment() {
     }
 
     private fun setupOnQueryTextListener() {
-        var job: Job? = null
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        var searchDelayJob: Job? = null
+        var searchJob: Job? = null
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 activity?.let { hideKeyboard(it) }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                job?.cancel()
-                job = lifecycleScope.launch {
+                // if recently opened Fragment then onQueryTextChange should not be called
+                if (isRecentlyOpenedFragment) return true
+                searchDelayJob?.cancel()
+                searchJob?.cancel()
+                searchDelayJob = lifecycleScope.launch {
                     delay(SEARCH_TIME_DELAY)
-                    newText?.let {
-                        animalAndFlowerSearchViewModel.search(newText)
+                    newText?.let { query ->
+                        animalAndFlowerSearchViewModel.query = query
+                        animalAndFlowerSearchViewModel.search().also { job ->
+                            searchJob = job
+                        }
                     }
                 }
-                job?.start()
+                searchDelayJob?.start()
                 return true
             }
         })
@@ -118,6 +126,47 @@ class AnimalAndFlowerSearchFragment : Fragment() {
         binding.rvSearch.apply {
             adapter = animalAndFlowerSearchAdapter
             layoutManager = LinearLayoutManager(context)
+        }
+        animalAndFlowerSearchAdapter.setCircleOnClickListener { animalAndFlower ->
+            findNavController().currentDestination?.id?.let { DestinationId ->
+                val action = AnimalAndFlowerSearchFragmentDirections
+                    .actionAnimalAndFlowerSearchFragmentToAnimalAndFlowerInfoFragment(
+                        animalAndFlower, DestinationId
+                    )
+                activity?.let { hideKeyboard(it) }
+                findNavController().navigate(action)
+            }
+        }
+    }
+
+    private fun setOnClicks() {
+        (activity as MainActivity).icBackOnClickListener = {
+            findNavController().navigate(R.id.action_animalAndFlowerSearchFragment_to_animalAndFlowerListFragment)
+        }
+    }
+
+    private fun setupSearchView() {
+        searchView = (activity as MainActivity).binding.searchView
+        searchView.apply {
+            // if recently opened Fragment then set query from viewModel
+            if (isRecentlyOpenedFragment) setQuery(animalAndFlowerSearchViewModel.query, false)
+            // focus on SearchView
+            isFocusable = true
+            isIconified = false
+            requestFocusFromTouch()
+            // open keyboard if query is empty
+            if (query.isEmpty()) {
+                lifecycleScope.launch {
+                    delay(1000)
+                    activity?.let { showKeyboard(it) }
+                }
+            }
+            // next lines prevent call SearchView.onQueryTextChange function when recently opened Fragment
+            isRecentlyOpenedFragment = true
+            lifecycleScope.launch {
+                delay(1000)
+                isRecentlyOpenedFragment = false
+            }
         }
     }
 

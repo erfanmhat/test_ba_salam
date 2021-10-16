@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     var icMenuOnClickListener: (() -> Unit)? = null
     var icSearchOnClickListener: (() -> Unit)? = null
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,13 +52,23 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment)
             .addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
-                    R.id.animalAndFlowerSearchFragment -> {
-                        binding.toolbar.visibility = View.GONE
-                    }
-                    else -> {
-                        binding.toolbar.visibility = View.VISIBLE
-                    }
+                    R.id.animalAndFlowerSearchFragment -> switchStateToSearch()
+                    else -> switchStateToNormal()
                 }
             }
+    }
+
+    private fun switchStateToSearch() = binding.apply {
+        icSearch.visibility = View.GONE
+        icMenu.visibility = View.GONE
+        tvToolbarTitle.visibility = View.GONE
+        searchView.visibility = View.VISIBLE
+    }
+
+    private fun switchStateToNormal() = binding.apply {
+        icSearch.visibility = View.VISIBLE
+        icMenu.visibility = View.VISIBLE
+        tvToolbarTitle.visibility = View.VISIBLE
+        searchView.visibility = View.GONE
     }
 }

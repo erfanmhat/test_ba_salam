@@ -19,7 +19,9 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_animalAndFlowerListFragment_to_animalAndFlowerSearchFragment"
-            app:destination="@id/animalAndFlowerSearchFragment" />
+            app:destination="@id/animalAndFlowerSearchFragment"
+            app:popUpTo="@id/animalAndFlowerListFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/animalAndFlowerInfoFragment"
@@ -37,6 +39,18 @@
         <argument
             android:name="animalAndFlower"
             app:argType="ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower" />
+        <argument
+            android:name="previousDestinationId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_animalAndFlowerInfoFragment_to_animalAndFlowerSearchFragment"
+            app:destination="@id/animalAndFlowerSearchFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/animalAndFlowerSearchFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/animalAndFlowerSearchFragment"
@@ -44,6 +58,17 @@
         android:label="AnimalAndFlowerSearchFragment" >
         <action
             android:id="@+id/action_animalAndFlowerSearchFragment_to_animalAndFlowerInfoFragment"
-            app:destination="@id/animalAndFlowerInfoFragment" />
+            app:destination="@id/animalAndFlowerInfoFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/animalAndFlowerSearchFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_animalAndFlowerSearchFragment_to_animalAndFlowerListFragment"
+            app:destination="@id/animalAndFlowerListFragment"
+            app:popUpTo="@id/animalAndFlowerListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -69,9 +69,13 @@ class AnimalAndFlowerListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
         animalAndFlowerAdapter.setCircleOnClickListener { animalAndFlower ->
-            val action = AnimalAndFlowerListFragmentDirections
-                .actionAnimalAndFlowerListFragmentToAnimalAndFlowerInfoFragment(animalAndFlower)
-            findNavController().navigate(action)
+            findNavController().currentDestination?.id?.let {
+                val action = AnimalAndFlowerListFragmentDirections
+                    .actionAnimalAndFlowerListFragmentToAnimalAndFlowerInfoFragment(
+                        animalAndFlower, it
+                    )
+                findNavController().navigate(action)
+            }
         }
     }
 

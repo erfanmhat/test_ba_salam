@@ -21,7 +21,9 @@ class AnimalAndFlowerSearchViewModel @Inject constructor(
     val animalAndFlowerSearchStateFlow =
         _animalAndFlowerSearchStateFlow as StateFlow<AnimalAndFlowerSearchState>
 
-    fun search(query: String) = viewModelScope.launch {
+    var query: String = ""
+
+    fun search() = viewModelScope.launch {
         if (query.isEmpty()) {
             _animalAndFlowerSearchStateFlow.emit(AnimalAndFlowerSearchState.Empty)
             return@launch
@@ -31,9 +33,7 @@ class AnimalAndFlowerSearchViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         if (!it.data.isNullOrEmpty()) {
-                            AnimalAndFlowerSearchState.Success(
-                                it.data
-                            )
+                            AnimalAndFlowerSearchState.Success(it.data)
                         } else {
                             AnimalAndFlowerSearchState.NoItemFound
                         }

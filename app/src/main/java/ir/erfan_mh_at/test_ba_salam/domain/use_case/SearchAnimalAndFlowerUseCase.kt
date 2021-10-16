@@ -14,14 +14,14 @@ class SearchAnimalAndFlowerUseCase @Inject constructor(
 ) {
     fun execute(query: String): Flow<Resource<List<AnimalAndFlower>>> = flow {
         emit(Resource.Loading())
-        try{
+        try {
             val result = mainRepository.searchAnimalAndFlower(query)
             emit(
                 Resource.Success(
                     result.map { it.toAnimalAndFlower() }
                 )
             )
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Resource.Error("an unexpected error !"))
         }
     }

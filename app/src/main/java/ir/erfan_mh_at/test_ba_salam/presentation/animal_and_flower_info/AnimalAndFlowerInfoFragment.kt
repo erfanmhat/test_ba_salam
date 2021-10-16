@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import ir.erfan_mh_at.test_ba_salam.R
@@ -17,6 +18,8 @@ import ir.erfan_mh_at.test_ba_salam.presentation.MainActivity
 
 @AndroidEntryPoint
 class AnimalAndFlowerInfoFragment : Fragment() {
+
+    private val args: AnimalAndFlowerInfoFragmentArgs by navArgs()
 
     private val animalAndFlowerInfoViewModel: AnimalAndFlowerInfoViewModel by viewModels()
 
@@ -74,7 +77,11 @@ class AnimalAndFlowerInfoFragment : Fragment() {
         }
 
         mainActivity.icBackOnClickListener = {
-            findNavController().navigate(R.id.action_animalAndFlowerInfoFragment_to_animalAndFlowerListFragment)
+            when (args.previousDestinationId) {
+                R.id.animalAndFlowerListFragment -> findNavController().navigate(R.id.action_animalAndFlowerInfoFragment_to_animalAndFlowerListFragment)
+                R.id.animalAndFlowerSearchFragment -> findNavController().navigate(R.id.action_animalAndFlowerInfoFragment_to_animalAndFlowerSearchFragment)
+                else -> Unit
+            }
         }
     }
 }
