@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.erfan_mh_at.test_ba_salam.common.Resource
 import ir.erfan_mh_at.test_ba_salam.domain.use_case.SearchAnimalAndFlowerUseCase
-import ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_list.AnimalAndFlowerListState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -17,26 +16,30 @@ class AnimalAndFlowerSearchViewModel @Inject constructor(
     private val searchAnimalAndFlowerUseCase: SearchAnimalAndFlowerUseCase
 ) : ViewModel() {
 
-    private val _searchAnimalAndFlowerStateFlow: MutableStateFlow<SearchAnimalAndFlowerState> =
-        MutableStateFlow(SearchAnimalAndFlowerState.Empty)
-    val searchAnimalAndFlowerStateFlow =
-        _searchAnimalAndFlowerStateFlow as StateFlow<SearchAnimalAndFlowerState>
+    private val _animalAndFlowerSearchStateFlow: MutableStateFlow<AnimalAndFlowerSearchState> =
+        MutableStateFlow(AnimalAndFlowerSearchState.Empty)
+    val animalAndFlowerSearchStateFlow =
+        _animalAndFlowerSearchStateFlow as StateFlow<AnimalAndFlowerSearchState>
 
     fun search(query: String) = viewModelScope.launch {
-        searchAnimalAndFlowerUseCase.execute(query).collect {
-            _searchAnimalAndFlowerStateFlow.emit(
+        if (query.isEmpty()) {
+            _animalAndFlowerSearchStateFlow.emit(AnimalAndFlowerSearchState.Empty)
+            return@launch
+        }
+        searchAnimalAndFlowerUseCase.execute("%$query%").collect {
+            _animalAndFlowerSearchStateFlow.emit(
                 when (it) {
                     is Resource.Success -> {
-                        if (it.data.isNullOrEmpty()) {
-                            SearchAnimalAndFlowerState.Success(
-                                it.data ?: emptyList()
+                        if (!it.data.isNullOrEmpty()) {
+                            AnimalAndFlowerSearchState.Success(
+                                it.data
                             )
                         } else {
-                            SearchAnimalAndFlowerState.NoItemFound
+                            AnimalAndFlowerSearchState.NoItemFound
                         }
                     }
-                    is Resource.Loading -> SearchAnimalAndFlowerState.Loading
-                    is Resource.Error -> SearchAnimalAndFlowerState.Error(
+                    is Resource.Loading -> AnimalAndFlowerSearchState.Loading
+                    is Resource.Error -> AnimalAndFlowerSearchState.Error(
                         it.message ?: "an unexpected error !"
                     )
                 }

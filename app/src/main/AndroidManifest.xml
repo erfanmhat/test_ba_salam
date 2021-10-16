@@ -3,20 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.erfan_mh_at.test_ba_salam">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test_ba_salam"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="ir.erfan_mh_at.test_ba_salam.presentation.MainActivity">
+        <activity
+            android:name="ir.erfan_mh_at.test_ba_salam.presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -82,7 +82,7 @@ class AnimalAndFlowerListFragment : Fragment() {
         }
 
         mainActivity.icSearchOnClickListener = {
-            Toast.makeText(context, "home fragment search!", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_animalAndFlowerListFragment_to_animalAndFlowerSearchFragment)
         }
 
         mainActivity.icBackOnClickListener = {

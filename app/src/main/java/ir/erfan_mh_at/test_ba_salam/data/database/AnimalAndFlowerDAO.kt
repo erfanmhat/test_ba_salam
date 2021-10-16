@@ -16,6 +16,6 @@ interface AnimalAndFlowerDAO {
     @Query("SELECT * FROM animal_and_flower_table")
     suspend fun getAnimalAndFlower(): List<AnimalAndFlowerLocalDto>
 
-    @Query("SELECT * FROM animal_and_flower_table WHERE animal_name = :query OR flower_name = :query")
+    @Query("SELECT * FROM animal_and_flower_table WHERE animal_name LIKE :query OR flower_name LIKE :query")
     suspend fun searchAnimalAndFlower(query: String): List<AnimalAndFlowerLocalDto>
 }

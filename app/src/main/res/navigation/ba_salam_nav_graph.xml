@@ -17,6 +17,9 @@
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/animalAndFlowerListFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_animalAndFlowerListFragment_to_animalAndFlowerSearchFragment"
+            app:destination="@id/animalAndFlowerSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/animalAndFlowerInfoFragment"
@@ -34,5 +37,13 @@
         <argument
             android:name="animalAndFlower"
             app:argType="ir.erfan_mh_at.test_ba_salam.domain.model.AnimalAndFlower" />
+    </fragment>
+    <fragment
+        android:id="@+id/animalAndFlowerSearchFragment"
+        android:name="ir.erfan_mh_at.test_ba_salam.presentation.animal_and_flower_search.AnimalAndFlowerSearchFragment"
+        android:label="AnimalAndFlowerSearchFragment" >
+        <action
+            android:id="@+id/action_animalAndFlowerSearchFragment_to_animalAndFlowerInfoFragment"
+            app:destination="@id/animalAndFlowerInfoFragment" />
     </fragment>
 </navigation>
