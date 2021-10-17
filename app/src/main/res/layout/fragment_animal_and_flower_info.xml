@@ -6,113 +6,104 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp2Images"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="8" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/vp2Images"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/info_fragment_card_view_background"
+        android:backgroundTint="@color/background_card_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vp2Images"
+        app:layout_constraintVertical_weight="7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:id="@+id/constraintLayout2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/circle_ring_color"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp2Images"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvNumberOfCommonLetters"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@android:color/transparent"
-                app:layout_constraintBottom_toBottomOf="@id/vp2Images"
-                app:tabBackground="@drawable/tab_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp" />
+                android:fontFamily="@font/iranian_sans"
+                android:padding="12dp"
+                android:text="2"
+                android:textColor="@color/circle_color"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvInfo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/background"
-            android:elevation="5dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id="@+id/tvAnimalAndFlowerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:fontFamily="@font/iranian_sans"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textColor="@color/main_text_color"
+            android:textSize="21sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/info_fragment_card_view_background"
-                android:backgroundTint="@color/background_card_view">
+        <TextView
+            android:id="@+id/tvCommonLetters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:layout_marginRight="24dp"
+            android:fontFamily="@font/iranian_sans"
+            android:text="@string/app_name"
+            android:textColor="@color/secondary_text_color"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAnimalAndFlowerName" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/circle"
-                    android:backgroundTint="@color/circle_ring_color"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/tvNumberOfCommonLetters"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/iranian_sans"
-                        android:padding="12dp"
-                        android:text="2"
-                        android:textColor="@color/circle_color"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/tvAnimalAndFlowerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:fontFamily="@font/iranian_sans"
-                    android:text="@string/app_name"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="20sp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvCommonLetters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/iranian_sans"
-                    android:text="@string/app_name"
-                    android:textColor="@color/secondary_text_color"
-                    android:textSize="16sp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvAnimalAndFlowerName" />
-
-                <TextView
-                    android:id="@+id/tvLoremIpsum"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:fontFamily="@font/iranian_sans"
-                    android:lineSpacingExtra="4dp"
-                    android:text="@string/lorem_ipsum"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@id/tvCommonLetters" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
+        <TextView
+            android:id="@+id/tvLoremIpsum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:fontFamily="@font/iranian_sans"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/lorem_ipsum"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCommonLetters" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

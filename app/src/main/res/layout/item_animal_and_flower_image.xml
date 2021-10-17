@@ -6,8 +6,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivAnimalAndFlowerImage"
-        android:layout_width="match_parent"
-        android:layout_margin="3dp"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="8dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

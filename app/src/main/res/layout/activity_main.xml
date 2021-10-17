@@ -10,13 +10,15 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="8dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -44,11 +46,11 @@
                 android:id="@+id/tvToolbarTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="16dp"
                 android:fontFamily="@font/iranian_sans"
                 android:text="@string/toolbar_title"
                 android:textColor="@color/toolbar_back_and_text"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/icSearch"
@@ -58,12 +60,13 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:visibility="gone"
-                app:queryHint="@string/search_animal_and_flower"
-                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/icBack"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:queryHint="@string/search_animal_and_flower" />
 
             <ImageView
                 android:id="@+id/icBack"
@@ -81,14 +84,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:navGraph="@navigation/ba_salam_nav_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>
