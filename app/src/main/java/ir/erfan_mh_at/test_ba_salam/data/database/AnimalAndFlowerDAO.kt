@@ -2,7 +2,6 @@ package ir.erfan_mh_at.test_ba_salam.data.database
 
 import androidx.room.*
 import ir.erfan_mh_at.test_ba_salam.data.database.dto.AnimalAndFlowerLocalDto
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnimalAndFlowerDAO {

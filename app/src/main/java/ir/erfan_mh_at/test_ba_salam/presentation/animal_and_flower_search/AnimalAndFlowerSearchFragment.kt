@@ -29,11 +29,8 @@ class AnimalAndFlowerSearchFragment : Fragment() {
     private val animalAndFlowerSearchViewModel: AnimalAndFlowerSearchViewModel by hiltNavGraphViewModels(
         R.id.ba_salam_nav_graph
     )
-
-    private val animalAndFlowerSearchAdapter = AnimalAndFlowerSearchAdapter()
-
+    private lateinit var animalAndFlowerSearchAdapter: AnimalAndFlowerSearchAdapter
     private lateinit var searchView: SearchView
-
     private lateinit var binding: FragmentAnimalAndFlowerSearchBinding
 
     override fun onCreateView(
@@ -112,13 +109,13 @@ class AnimalAndFlowerSearchFragment : Fragment() {
                         }
                     }
                 }
-                searchDelayJob?.start()
                 return true
             }
         })
     }
 
     private fun setupRecyclerView() {
+        animalAndFlowerSearchAdapter = AnimalAndFlowerSearchAdapter()
         binding.rvSearch.apply {
             adapter = animalAndFlowerSearchAdapter
             layoutManager = LinearLayoutManager(context)

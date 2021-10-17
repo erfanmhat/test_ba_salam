@@ -2,7 +2,6 @@ package ir.erfan_mh_at.test_ba_salam.data.remote
 
 import ir.erfan_mh_at.test_ba_salam.data.remote.response.GetAnimalsResponse
 import ir.erfan_mh_at.test_ba_salam.data.remote.response.GetFlowersResponse
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

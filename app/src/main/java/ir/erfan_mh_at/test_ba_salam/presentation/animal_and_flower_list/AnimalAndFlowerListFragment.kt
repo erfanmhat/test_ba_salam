@@ -94,10 +94,10 @@ class AnimalAndFlowerListFragment : Fragment() {
         }
     }
 
-    private fun setupSwipeRefreshLayout() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
+    private fun setupSwipeRefreshLayout() = binding.swipeRefreshLayout.apply {
+        setOnRefreshListener {
             animalAndFlowerViewModel.setupAnimalAndFlowerFlow()
-            binding.swipeRefreshLayout.isRefreshing = false
+            isRefreshing = false
         }
     }
 }
